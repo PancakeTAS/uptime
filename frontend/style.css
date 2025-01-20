@@ -1,0 +1,221 @@
+@font-face {
+    font-family: "Inter";
+    src: url("inter.ttf");
+}
+
+:root {
+    /* background colors */
+    --bg-color: rgb(247, 247, 247);
+    --service-bg-color: rgb(255, 255, 255);
+
+    /* text colors */
+    --main-text-color: rgb(0, 0, 0);
+    --main-text-color2: rgb(255, 255, 255);
+    --alt-text-color: rgb(72, 72, 72);
+    --red-text-color: rgb(217, 24, 24);
+
+    /* status indicating colors */
+    --success-color: rgb(40, 167, 69);
+    --warning-color: rgb(232, 193, 71);
+    --danger-color: rgb(195, 66, 65);
+    --invalid-color: rgb(104, 119, 144);
+
+    /* graph status colors */
+    --success-color-graph: rgb(96, 191, 106);
+    --warning-color-graph: rgb(229, 175, 68);
+    --danger-color-graph: rgb(203, 76, 72);
+    --invalid-color-graph: rgb(162, 165, 171);
+}
+
+body {
+    overflow-x: hidden;
+    
+    font-family: "Inter", sans-serif;
+    
+    background-color: var(--bg-color);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    margin-bottom: 6rem;
+    gap: 6rem;
+    color: var(--main-text-color);
+}
+
+/* css styles for header/footer */
+
+.header, .footer {
+    padding-top: 1.5rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-size: 1.25rem;
+}
+
+.footer {
+    border-top: 1px solid var(--alt-text-color);
+}
+
+.header-left, .footer-left {
+    font-weight: 300;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+.header-left::first-letter, .footer-left::first-letter {
+    color: var(--success-color);
+}
+
+.footer-right {
+    font-size: 1rem;
+    color: var(--alt-text-color);
+}
+
+/* css styles for main summary */
+
+.summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 3rem;
+    font-weight: 600;
+    text-align: center;
+
+    gap: 2.5rem;
+}
+
+/* css styles for each server */
+
+.server {
+    background-color: var(--service-bg-color);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+    border-radius: .375rem;
+
+    display: flex;
+    flex-direction: column;
+    
+    padding: 0 6rem 3rem 6rem;
+    gap: 2rem;
+}
+
+.server-name {
+    width: calc(100% + 12rem);
+    overflow: hidden;
+    position: relative;
+    left: -6rem;
+
+    border-radius: .375rem .375rem 0 0;
+    
+    font-size: 1.875rem;
+    font-weight: 500;
+    line-height: 5rem;
+    text-align: center;
+
+    background-color: var(--success-color);
+    color: var(--main-text-color2);
+}
+
+.server-update {
+    text-align: center;
+
+    font-size: 0.875rem;
+    color: var(--alt-text-color);
+}
+
+.server-history {
+    border-radius: .375rem;
+    font-size: 1.25rem;
+    line-height: 2rem;
+
+    padding: .75rem 1.5rem;
+    margin: 1rem auto;
+
+    background-color: var(--success-color);
+    color: var(--main-text-color2);
+}
+
+.warning {
+    background-color: var(--warning-color);
+}
+
+.danger {
+    background-color: var(--danger-color);
+}
+
+.invalid {
+    background-color: var(--invalid-color);
+}
+
+.down {
+    color: var(--red-text-color) !important;
+    text-shadow: 0 0 30px var(--danger-color);
+}
+
+/* css styles for each service category */
+
+.category {
+    font-weight: 700;
+    font-size: 1.5rem;
+
+    margin-top: 1rem;
+}
+
+/* css styles for each service */
+
+.service {
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.service-top, .service-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.service-name {
+    font-size: 1.25rem;
+    color: var(--main-text-color)
+}
+
+.service-uptime, .service-range-oldest, .service-range-newest {
+    align-self: flex-end;
+    font-size: 0.875rem;
+    color: var(--alt-text-color);
+}
+
+.service-graph {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.service-graph > div {
+    background-color: var(--success-color-graph);
+
+    height: 37px;
+    width: 5px;
+    border-radius: 5px;
+}
+
+.service-graph > div.warning {
+    background-color: var(--warning-color-graph);
+}
+
+.service-graph > div.danger {
+    background-color: var(--danger-color-graph);
+}
+
+.service-graph > div.invalid {
+    background-color: var(--invalid-color-graph);
+}
