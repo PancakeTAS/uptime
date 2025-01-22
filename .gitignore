@@ -1,2 +1,5 @@
 # cargo build output
 /target
+
+# default database
+uptime.db

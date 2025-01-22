@@ -1,0 +1,21 @@
+port: 8005 # make sure to reverse proxy or open this port to the internet
+database: "uptime.db"
+servers:
+  - name: "My Server"
+    categories:
+      - name: "Core Services"
+        services:
+          - id: 0 # NEVER reuse ids
+            name: "Example Service"
+            info: "Example service that is always up"
+            command: "true"
+          - id: 1
+            name: "System Service"
+            info: "Service that checks whether the postgresql systemd service is running"
+            command: "systemctl is-active postgresql"
+      - name: "Network Services"
+        services:
+          - id: 2
+            name: "Cloudflare DNS"
+            info: "Service that checks whether the cloudflare dns server is reachable"
+            command: "ping -W 1 -c 1 1.1.1.1"
