@@ -6,7 +6,7 @@
  * @param {object[]} servers list of servers
  */
 function create_body({ servers }) {
-    const is_fully_operational = servers.filter(x => x.is_operational != 2).length == 0;
+    const is_fully_operational = servers.filter(x => x.title.is_operational != 2).length == 0;
     const icon = is_fully_operational ? `
         <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M40 80C62.0914 80 80 62.0914 80 40C80 17.9086 62.0914 0 40 0C17.9086 0 0 17.9086 0 40C0 62.0914 17.9086 80 40 80Z" fill="#28A745"/>
@@ -216,115 +216,16 @@ function calculate_days() {
 
 // main
 
-const TEST_API_RESPONSE = {
-    servers: [
-        {
-            title: {
-                name: "MGNetwork",
-                is_operational: 2,
-            },
-            last_update: 0,
-            categories: [
-                {
-                    name: "TAS Battle",
-                    services: [
-                        {
-                            name: "Velocity",
-                            info: "Velocity proxy server connecting all minecraft servers on the network",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        },
-                        {
-                            name: "Lobby",
-                            info: "SlowPaper Minecraft server acting as the main tas battle lobby",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        },
-                        {
-                            name: "Game Server 1",
-                            info: "SlowPaper Minecraft server acting as the sole tas battle ffa server",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        }
-                    ]
-                },
-                {
-                    name: "Discord Bots",
-                    services: [
-                        {
-                            name: "TAS8999",
-                            info: "Concord based discord bot for the Minecraft TAS discord community, providing various commands and features",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        },
-                        {
-                            name: "Findseed",
-                            info: "Concord based discord bot for the Minecraft TAS discord community, bringing /findseed to discord",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        },
-                        {
-                            name: "Puppy",
-                            info: "A cute discord bot for various roleplaying gifs and images, serenity-rs based",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        },
-                        {
-                            name: "Question Of The Day",
-                            info: "Private discord bot",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        }
-                    ]
-                },
-                {
-                    name: "Other Services",
-                    services: [
-                        {
-                            name: "Tino",
-                            info: "Private software",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        },
-                        {
-                            name: "Apache HTTP Server",
-                            info: "Web server for various services and reverse proxies",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        },
-                        {
-                            name: "PostgreSQL",
-                            info: "Database for various services",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        },
-                        {
-                            name: "Reposilite",
-                            info: "Minecraft TAS java maven repository",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        },
-                        {
-                            name: "Synapse Matrix Server",
-                            info: "Private matrix homeserver",
-                            data_uptimes: [ -1 ],
-                            status: 1,
-                        }
-                    ]
-                },
-            ]
-        }
-    ]
-}
-
 let refresh_timeout;
 
 /**
  * refresh the main html element
  */
-function refresh() {
-    // fetch data from the api (TODO)
-    const DATA = TEST_API_RESPONSE;
+async function refresh() {
+    // fetch data from the api localhost:808
+    const DATA = await fetch("http://localhost:8080/")
+        .then(response => response.json())
+        .catch(error => console.error(error));
     // refresh main element
     document.body.innerHTML = create_body(DATA);
     // refresh after 5 seconds
