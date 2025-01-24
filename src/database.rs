@@ -73,7 +73,7 @@ impl Database {
         Ok(status)
     }
     /// Fetch the history for a id
-    pub fn fetch_history(&self, id: u64, days: u64, now: u64) -> rusqlite::Result<Vec<i8>> {
+    pub fn fetch_history(&self, id: u64, days: u64, now: u64) -> rusqlite::Result<Vec<i64>> {
         // get start of the day
         let start_of_day = now - now % 86400;
 
@@ -81,7 +81,7 @@ impl Database {
         let mut query = self.0.prepare(
             "SELECT uptime FROM history WHERE id = ? AND timestamp BETWEEN ? AND ? ORDER BY timestamp DESC LIMIT ?",
         )?;
-        let history = query.query_map([id, start_of_day - 86400 * days, start_of_day, days], |row| row.get::<_, i8>(0))?;
+        let history = query.query_map([id, start_of_day - 86400 * days, start_of_day, days], |row| row.get::<_, i64>(0))?;
         let mut data = Vec::new();
         for uptime in history {
             data.push(uptime?);

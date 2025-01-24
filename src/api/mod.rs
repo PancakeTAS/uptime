@@ -64,7 +64,7 @@ fn refresh_state() -> rusqlite::Result<()> {
             for service in &category.services {
                 let status = database.latest_healthcheck(service.id)?;
                 let data_uptimes = database.fetch_history(service.id, 180, now)?
-                    .iter().map(|uptime| if *uptime >= 23 { 0 } else if *uptime > 0 { 1 } else { 0 })
+                    .iter().map(|uptime| if *uptime >= 23*60 { 0 } else if *uptime > 0 { 1 } else { 0 })
                     .collect::<Vec<_>>();
 
                 total_status.0 = total_status.0 + 1;
