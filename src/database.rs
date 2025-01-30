@@ -84,7 +84,7 @@ impl Database {
         let history = query.query_map([id, start_of_day - 86400 * days, start_of_day, days], |row| row.get::<_, i64>(0))?;
         let mut data = Vec::new();
         for uptime in history {
-            data.push(uptime?);
+            data.insert(0, uptime?);
         }
         Ok(data)
     }
